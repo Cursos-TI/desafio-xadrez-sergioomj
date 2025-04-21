@@ -1,75 +1,79 @@
 #include <stdio.h>
 
-//Constantes para as direções
+// Constantes para as direções
 #define CIMA "Cima\n"
 #define BAIXO "Baixo\n"
 #define ESQUERDA "Esquerda\n"
 #define DIREITA "Direita\n"
+#define DIAGONAL_SUPERIOR_DIREITA "Diagonal Superior Direita\n"
 
-//Mover o Bispo cima/direita
-void moverBispo(){
-    printf("Movendo Bispo 5 casas na diagonal cima/ direita: \n");
-    for(int i = 1; i <= 5; i++){
-        printf(CIMA);
-        printf(DIREITA);
+// Função recursiva para mover o Bispo na diagonal superior direita
+void moverBispo(int casas) {
+    if (casas <= 0) return;
+    printf(DIAGONAL_SUPERIOR_DIREITA); // mover diagonalmente em um unico movimento
+    moverBispo(casas - 1); 
+}
+
+// Função recursiva para mover a Torre para a direita
+void moverTorre(int casas) {
+    if (casas <= 0) return; 
+    printf(DIREITA);
+    moverTorre(casas - 1); 
+}
+
+// Função recursiva para mover a Rainha para a esquerda
+void moverRainha(int casas) {
+    if (casas <= 0) return; 
+    printf(ESQUERDA);
+    moverRainha(casas - 1); 
+}
+
+// Função para mover o Cavalo em L para cima e para a direita
+void moverCavalo() {
+    printf("Movendo o Cavalo em L para cima e para a direita:\n");
+
+    // Loop de cotrole do movimento em L
+    for (int i = 1; i <= 2; i++) {
+        for (int j = 1; j <= 1; j++) {
+            if (i == 1) {
+                printf(CIMA); 
+            } else if (i == 2) {
+                printf(DIREITA);
+                break; // saindo do loop interno depois do movimento para direita
+            }
+        }
     }
 }
 
-    //Mover a Torre para direita
-    void moverTorre(){
-        printf("Mover torre 5 casas para direita: \n");
-        for( int i = 1; i <= 5; i++){
-            printf(DIREITA);
-        }
+int main() {
+    // Variáveis de controle das peças de xadrez
+    int bispoMovimento = 1; // 1 para mover o Bispo
+    int torreMovimento = 1; // 1 para mover a Torre
+    int rainhaMovimento = 1; // 1 para mover a Rainha
+    int cavaloMovimento = 1; // 1 para mover o Cavalo
+
+    // Movimentação do Bispo
+    if (bispoMovimento) {
+        printf("Movendo o Bispo 5 casas na diagonal superior direita:\n");
+        moverBispo(5); // diagonal
     }
 
-    //Mover Rainha para a Esquerda
-    void moverRainha(){
-        printf("Mover rainha 8 casas para a esquerda: \n");
-        for(int i = 1; i <= 8; i++){
-            printf(ESQUERDA);
-        }
+    // Movimentação da Torre
+    if (torreMovimento) {
+        printf("Movendo a Torre 5 casas para a direita:\n");
+        moverTorre(5); // Chamada da função recursiva
     }
-    // mover cavalo em formato L (baixo / esquerda)
-    void moverCavalo(){
-        printf("Mover cavalo em L (Baixo / Esquerda: \n");
-        // Primeira parte da movimentação em L : 2 passos para baixo
-        for(int i = 1; i <= 2; i++){
-            printf(BAIXO);
-        }
-        // Segunda parte do movimento em L: 1 paso para esquerda
-        int passo = 1;
-        while(passo <= 1){
-            printf(ESQUERDA);
-            passo++;
+
+    // Movimentação da Rainha
+    if (rainhaMovimento) {
+        printf("Movendo a Rainha 8 casas para a esquerda:\n");
+        moverRainha(8); // Chamada da função recursiva
     }
+
+    // Movimentação do Cavalo
+    if (cavaloMovimento) {
+        moverCavalo(); // Chamada da função para mover o cavalo
+    }
+
+    return 0;
 }
-        
-        
-
-    int main(){
-        //variáveis de controle de peças
-        int bispo_movimento = 1;
-        int torre_movimento = 1;
-        int rainha_movimento = 1;
-        int cavalo_movimento = 1;
-        // movimento bispo
-        if(bispo_movimento){
-            moverBispo();
-        }
-        //movimento torre
-        if(torre_movimento){
-            moverTorre();
-        }
-        // movimento rainha
-        if(rainha_movimento){
-            moverRainha();
-        }
-        //movimento cavalo
-        if(cavalo_movimento){
-            moverCavalo();
-        }
-        
-
-        return 0;
-    }
